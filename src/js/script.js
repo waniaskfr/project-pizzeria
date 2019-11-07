@@ -182,14 +182,15 @@
           const image = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId);
           console.log('image:', image);
           /* start if: if option is selected add class active to image from classNames.menuProduct.imageVisible */
-          if(optionSelected && image){
-            image.classList.add(classNames.menuProduct.imageVisible);
-          }
-          /* start else: if not, image should lose class active from classNames.menuProduct.imageVisible */
-          else{
-            if(image){
+          if(image){
+            if(optionSelected){
+              image.classList.add(classNames.menuProduct.imageVisible);
+            }           
+            /* start else: if not, image should lose class active from classNames.menuProduct.imageVisible */
+            else{
               image.classList.remove(classNames.menuProduct.imageVisible);
             }
+            /* end loop: for if image */
           }
           /* END LOOP: for each optionId in param.options */
         }
