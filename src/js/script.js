@@ -187,7 +187,7 @@
       const formData = utils.serializeFormToObject(thisProduct.form);
       // console.log('formData:', formData);
       /* NEW 9.3 add empty object */
-      thisProduct.params {};
+      thisProduct.params = {};
       /* set variable price to equal thisProduct.data.price */
       let price = thisProduct.data.price;
       // console.log(price);
@@ -220,16 +220,17 @@
           /* find image and save in const */
           const image = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId);
           // console.log('image:', image);
-          if(!thisProduct.params[paramId]){
-            thisProduct.params[paramId] = {
-              label: param.label,
-              options: {},
-            };
-          }
-          thisProduct.params[paramId].options[optionId] = option.label;
+          
           /* start if: if option is selected add class active to image from classNames.menuProduct.imageVisible */
           if(image){
             if(optionSelected){
+              if(!thisProduct.params[paramId]){
+                thisProduct.params[paramId] = {
+                  label: param.label,
+                  options: {},
+                };
+              }
+              thisProduct.params[paramId].options[optionId] = option.label;
               image.classList.add(classNames.menuProduct.imageVisible);
             }           
             /* start else: if not, image should lose class active from classNames.menuProduct.imageVisible */
