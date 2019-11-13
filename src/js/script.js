@@ -377,7 +377,7 @@
       thisCart.dom.productList.appendChild(generatedDOM);
       console.log('generatedDOM:',generatedDOM);
 
-      thisCart.products.push(menuProduct);
+      thisCart.products.push(new CartProduct(menuProduct, generatedDOM));
       console.log('thisCart.products', thisCart.products);
     }
   }
@@ -403,7 +403,6 @@
       const thisCartProduct = this;
 
       thisCartProduct.dom = {};
-
       thisCartProduct.dom.wrapper = element;
       thisCartProduct.dom.amountWidget = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.amountWidget);
       thisCartProduct.dom.price = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.price);
