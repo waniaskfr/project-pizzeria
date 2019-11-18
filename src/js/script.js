@@ -407,14 +407,13 @@
         subtotalPrice: thisCart.subtotalPrice,
         totalPrice: thisCart.totalPrice,
         deliveryFee: thisCart.deliveryFee,
-
         products: []
       };
 
       for(let product of thisCart.products){
-        thisCartProduct.getData();
+        payload.products.push(product.getData());
       }
-      payload.product.push();
+    console.log('payload.products', payload.products);
 
       const options = {
         method: 'POST',
@@ -561,13 +560,14 @@
     getData(){
       const thisCartProduct = this;
 
-      id = thisCartProduct.id;
-      amount = thisCartProduct.amount;
-      price = thisCartProduct.price;
-      priceSingle = thisCartProduct.priceSingle;
-      params = thisCartProduct.params;
+      return {
+      id: thisCartProduct.id,
+      amount: thisCartProduct.amount,
+      price: thisCartProduct.price,
+      priceSingle: thisCartProduct.priceSingle,
+      params: thisCartProduct.params,
+      };
     }
-
   }
 
   const app = {
