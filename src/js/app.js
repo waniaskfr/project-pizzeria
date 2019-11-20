@@ -1,16 +1,17 @@
 import {settings, select, classNames} from './settings.js';
 import Product from './components/Product.js';
 import Cart from './components/Cart.js';
-import Booking from './components/Booking.js';
+import {Booking} from './components/Booking.js';
 
 const app = {
   initBooking: function(){
     const thisApp = this;
 
-    thisApp.booking = document.querySelector(select.containerOf.booking);
-    console.log('thisApp.booking', thisApp.booking);
+    const bookingWidgetContainer = document.querySelector(select.containerOf.booking);
+    console.log('bookingWidgetContainer', bookingWidgetContainer);
 
-    thisApp.booking = new Booking();
+    thisApp.booking = new Booking(bookingWidgetContainer);
+    console.log('thisApp.booking', thisApp.booking);
 
   },
 
