@@ -19,10 +19,32 @@ export class DatePicker extends BaseWidget {
     console.log('minDate', thisWidget.minDate);
     thisWidget.maxDate = utils.addDays(thisWidget.minDate, settings.datePicker.maxDaysInFuture);
     console.log('maxDate', thisWidget.maxDate);
+
+    
+    const options = {
+      defaultDate: thisWidget.minDate,
+      minDate: thisWidget.minDate,
+      maxDate: thisWidget.maxDate,
+      disable: [
+        function(date) {
+        // return true to disable
+          return (date.getDay() === 1); // 1 = monday
+        }
+      ],
+      locale: {
+        firstDayOfWeek: 1 // start week on Monday
+      },
+      onChange: function(dateStr){
+        thisWidget.value = dateStr;
+      },
+
+    }
+    flatpickr(thisWidget.dom.input, options);
+
   }
 
   parseValue(){
-    return parseInt();
+    return ;
   }
 
   isValid(){
