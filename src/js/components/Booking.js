@@ -14,8 +14,7 @@ export class Booking{
   render(element){
     const thisBooking = this;
 
-    thisBooking.dom.datePicker = thisBooking.dom.wrapper.querySelector(select.widgets.datePicker.wrapper);
-    // console.log('thisBooking.dom.datePicker', thisBooking.dom.datePicker);
+    
     
     /* generate HTML code from templates.bookingWigdet without any arguments */
     const generatedHTML = templates.bookingWidget();
@@ -23,17 +22,20 @@ export class Booking{
     thisBooking.dom = {};
     /* save to this object wrapper property equals argument */
     thisBooking.dom.wrapper = element; 
-    console.log('dom.wrapper', thisBooking.dom.wrapper);
+    // console.log('dom.wrapper', thisBooking.dom.wrapper);
     /* change content wrapper to html code from template */
     const generatedDOM = utils.createDOMFromHTML(generatedHTML);
     thisBooking.dom.wrapper.appendChild(generatedDOM);
-    console.log('generatedDOM', generatedDOM);
+    // console.log('generatedDOM', generatedDOM);
     /* save to thisBooking.dom.peopleAmount single element from wrapper matching to select.booking.peopleAmount */
     thisBooking.dom.peopleAmount = thisBooking.dom.wrapper.querySelector(select.booking.peopleAmount);
-    console.log('peopleAmount', thisBooking.dom.peopleAmount);   
+    // console.log('peopleAmount', thisBooking.dom.peopleAmount);   
     /* simillary to peopleAmount save element for hoursAmount */
     thisBooking.dom.hoursAmount = thisBooking.dom.wrapper.querySelector(select.booking.hoursAmount);
-    console.log('hoursAmount', thisBooking.dom.hoursAmount);
+    // console.log('hoursAmount', thisBooking.dom.hoursAmount);
+
+    thisBooking.dom.datePicker = thisBooking.dom.wrapper.querySelector(select.widgets.datePicker.wrapper);
+    console.log('thisBooking.dom.datePicker', thisBooking.dom.datePicker);
   }
 
   initWidgets(){
