@@ -38,7 +38,8 @@ export class DatePicker extends BaseWidget {
         thisWidget.value = dateStr;
       },
 
-    }
+    };
+    // eslint-disable-next-line no-undef
     flatpickr(thisWidget.dom.input, options);
 
   }
