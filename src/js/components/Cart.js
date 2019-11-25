@@ -86,7 +86,7 @@ class Cart{
         return response.json();
       })
       .then(function(parsedResponse){
-        // console.log('parsedResponse', parsedResponse);
+        console.log('parsedResponse', parsedResponse);
       });
 
   }
@@ -136,7 +136,7 @@ class Cart{
     const index = thisCart.products.indexOf(cartProduct);
     // console.log('index', index);
     const removedIndex = thisCart.products.splice(index, 1);
-    // console.log('removed', removedIndex);
+    console.log('removed', removedIndex);
     const DomElementRemove = cartProduct.dom.wrapper;
     DomElementRemove.remove();
       
