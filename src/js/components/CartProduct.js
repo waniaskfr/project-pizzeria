@@ -65,7 +65,7 @@ class CartProduct{
     thisCartProduct.dom.remove.addEventListener('click', function(event){
       event.preventDefault();
       thisCartProduct.remove();
-      console.log('remove:', thisCartProduct.remove);
+      // console.log('remove:', thisCartProduct.remove);
     });
 
   }

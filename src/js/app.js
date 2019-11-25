@@ -8,10 +8,10 @@ const app = {
     const thisApp = this;
 
     const bookingWidgetContainer = document.querySelector(select.containerOf.booking);
-    console.log('bookingWidgetContainer', bookingWidgetContainer);
+    // console.log('bookingWidgetContainer', bookingWidgetContainer);
 
     thisApp.booking = new Booking(bookingWidgetContainer);
-    console.log('thisApp.booking', thisApp.booking);
+    // console.log('thisApp.booking', thisApp.booking);
 
   },
 
@@ -89,7 +89,7 @@ const app = {
         return rawResponse.json();
       })
       .then(function(parsedResponse){
-        console.log('parsedResponse', parsedResponse);
+        // console.log('parsedResponse', parsedResponse);
         /* save parsedResponse as thisApp.data.products */
         thisApp.data.products = parsedResponse;
         /* execute initMenu method */

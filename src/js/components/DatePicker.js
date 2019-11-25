@@ -16,9 +16,9 @@ export class DatePicker extends BaseWidget {
     const thisWidget = this;
 
     thisWidget.minDate = new Date(thisWidget.value);
-    console.log('minDate', thisWidget.minDate);
+    // console.log('minDate', thisWidget.minDate);
     thisWidget.maxDate = utils.addDays(thisWidget.minDate, settings.datePicker.maxDaysInFuture);
-    console.log('maxDate', thisWidget.maxDate);
+    // console.log('maxDate', thisWidget.maxDate);
 
     
     const options = {

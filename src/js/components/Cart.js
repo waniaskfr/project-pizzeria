@@ -71,7 +71,7 @@ class Cart{
     for(let product of thisCart.products){
       payload.products.push(product.getData());
     }
-    console.log('payload.products', payload.products);
+    // console.log('payload.products', payload.products);
 
     const options = {
       method: 'POST',
@@ -86,7 +86,7 @@ class Cart{
         return response.json();
       })
       .then(function(parsedResponse){
-        console.log('parsedResponse', parsedResponse);
+        // console.log('parsedResponse', parsedResponse);
       });
 
   }
@@ -114,14 +114,14 @@ class Cart{
     thisCart.subtotalPrice = 0;
 
     for(let product of thisCart.products){
-      console.log('product:', product);
+      // console.log('product:', product);
       thisCart.subtotalPrice += product.price;
       thisCart.totalNumber += product.amount;    
       
     }
 
     thisCart.totalPrice = thisCart.subtotalPrice + thisCart.deliveryFee;
-    console.log('thisCartTotalPrice:', thisCart.totalPrice);
+    // console.log('thisCartTotalPrice:', thisCart.totalPrice);
 
     for(let key of thisCart.renderTotalsKeys){
       for(let elem of thisCart.dom[key]){
@@ -134,9 +134,9 @@ class Cart{
     const thisCart = this;
       
     const index = thisCart.products.indexOf(cartProduct);
-    console.log('index', index);
+    // console.log('index', index);
     const removedIndex = thisCart.products.splice(index, 1);
-    console.log('removed', removedIndex);
+    // console.log('removed', removedIndex);
     const DomElementRemove = cartProduct.dom.wrapper;
     DomElementRemove.remove();
       
