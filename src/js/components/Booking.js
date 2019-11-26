@@ -12,6 +12,7 @@ export class Booking{
     thisBooking.render(bookingWidgetContainer);
     thisBooking.initWidgets();
     thisBooking.getData();
+    thisBooking.clickedTable();
 
     //console.log('thisBooking.render', thisBooking.render);
   }
@@ -152,6 +153,22 @@ export class Booking{
       } else {
         table.classList.remove(classNames.booking.tableBooked);
       }
+    }
+  }
+
+  clickedTable(){
+    const thisBooking = this;
+    /* START LOOP and fine one table from tables */
+    for(let table of thisBooking.dom.tables){
+      /* check if table have booked status after click, if no add, if yes remove */
+      table.addEventListener('click', function(){
+        if(table.classList.contains(classNames.booking.tableBooked)){
+          return;
+        } 
+        else {
+          table.classList.toggle(classNames.booking.tableBooked); 
+        }        
+      });
     }
   }
 
