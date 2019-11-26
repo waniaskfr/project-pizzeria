@@ -155,7 +155,6 @@ export class Booking{
     }
   }
 
-
   render(element){
     const thisBooking = this;
 
