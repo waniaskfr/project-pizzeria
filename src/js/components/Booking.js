@@ -170,6 +170,52 @@ export class Booking{
         }        
       });
     }
+
+    thisBooking.dom.formButton.addEventListener('click', function(){
+      event.preventDefault();
+      console.log('clickedFormButton');
+      thisBooking.sendBooked();
+    })
+  }
+
+  sendBooked(){
+    const thisBooking = this;
+
+    const url = settings.db.url + '/' + settings.db.order;
+
+    const sending = {
+      date: thisBooking.date,
+      hour: thisBooking.hourPicker.value,
+      duration: thisBooking.dom.hours.value,
+      people: thisBooking.dom.people.value,
+      address: thisBooking.dom.address.value,
+      phone: thisBooking.dom.phone.value,
+      starters: [],
+    };
+    console.log('sending', sending);
+
+    for(let starter of thisBooking.dom.starters){
+      if(starter.checked == true){
+        sending.starters.push(starter.value);
+      }
+    }
+    console.log('sending.starters', sending.starters);
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(sending),
+    };
+    
+    fetch(url, options)
+      .then(function(response){
+        return response.json();
+      })
+      .then(function(parsedResponse){
+        console.log('parsedResponse', parsedResponse);
+      });
   }
 
   render(element){
@@ -183,23 +229,26 @@ export class Booking{
     thisBooking.dom = {};
     /* save to this object wrapper property equals argument */
     thisBooking.dom.wrapper = element; 
-    // console.log('dom.wrapper', thisBooking.dom.wrapper);
     /* change content wrapper to html code from template */
     const generatedDOM = utils.createDOMFromHTML(generatedHTML);
     thisBooking.dom.wrapper.appendChild(generatedDOM);
-    // console.log('generatedDOM', generatedDOM);
     /* save to thisBooking.dom.peopleAmount single element from wrapper matching to select.booking.peopleAmount */
     thisBooking.dom.peopleAmount = thisBooking.dom.wrapper.querySelector(select.booking.peopleAmount);
-    // console.log('peopleAmount', thisBooking.dom.peopleAmount);   
     /* simillary to peopleAmount save element for hoursAmount */
     thisBooking.dom.hoursAmount = thisBooking.dom.wrapper.querySelector(select.booking.hoursAmount);
-    // console.log('hoursAmount', thisBooking.dom.hoursAmount);
-
     thisBooking.dom.datePicker = thisBooking.dom.wrapper.querySelector(select.widgets.datePicker.wrapper);
-    // console.log('thisBooking.dom.datePicker', thisBooking.dom.datePicker);
     thisBooking.dom.hourPicker = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.wrapper);
-    // console.log('thisBooking.dom.hourPicker', thisBooking.dom.hourPicker);
+    // console.log('hourPicker', thisBooking.dom.hourPicker);
     thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
+    thisBooking.dom.formButton = thisBooking.dom.wrapper.querySelector(select.booking.formButton);
+    // console.log('formButton', thisBooking.dom.formButton);
+    thisBooking.dom.hours = thisBooking.dom.wrapper.querySelector(select.booking.hours);
+    thisBooking.dom.people = thisBooking.dom.wrapper.querySelector(select.booking.people);
+    thisBooking.dom.phone = thisBooking.dom.wrapper.querySelector(select.booking.phone);
+    thisBooking.dom.address = thisBooking.dom.wrapper.querySelector(select.booking.address);
+    // console.log('address', thisBooking.dom.address);
+    thisBooking.dom.starters = thisBooking.dom.wrapper.querySelectorAll(select.booking.starters);
+    // console.log('starters', thisBooking.dom.starters);
   }
 
   initWidgets(){
