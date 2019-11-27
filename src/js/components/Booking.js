@@ -175,13 +175,13 @@ export class Booking{
       event.preventDefault();
       console.log('clickedFormButton');
       thisBooking.sendBooked();
-    })
+    });
   }
 
   sendBooked(){
     const thisBooking = this;
 
-    const url = settings.db.url + '/' + settings.db.order;
+    const url = settings.db.url + '/' + settings.db.booking;
 
     const sending = {
       date: thisBooking.date,
