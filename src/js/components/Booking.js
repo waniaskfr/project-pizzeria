@@ -8,7 +8,7 @@ import {HourPicker} from './HourPicker.js';
 export class Booking{
   constructor(bookingWidgetContainer){
     const thisBooking = this;
-    
+
     thisBooking.render(bookingWidgetContainer);
     thisBooking.initWidgets();
     thisBooking.getData();
@@ -41,7 +41,7 @@ export class Booking{
     //  console.log('getData params', params);
 
     const urls = {
-      booking:        settings.db.url + '/' + settings.db.booking 
+      booking:        settings.db.url + '/' + settings.db.booking
                                             + '?' + params.booking.join('&'),
       eventsCurrent:  settings.db.url + '/' + settings.db.event
                                             + '?' + params.eventsCurrent.join('&'),
@@ -49,7 +49,7 @@ export class Booking{
                                             + '?' + params.eventsRepeat.join('&'),
     };
     // console.log('getData urls', urls);
-    
+
     Promise.all([
       fetch(urls.booking),
       fetch(urls.eventsCurrent),
@@ -73,7 +73,7 @@ export class Booking{
       });
   }
 
-  
+
   parseData(bookings, eventsCurrent, eventsRepeat){
     const thisBooking = this;
 
@@ -117,7 +117,7 @@ export class Booking{
       if(typeof thisBooking.booked[date][hourBlock] == 'undefined'){
         thisBooking.booked[date][hourBlock] = [];
       }
-  
+
       thisBooking.booked[date][hourBlock].push(table);
     }
   }
@@ -127,12 +127,14 @@ export class Booking{
 
     thisBooking.date = thisBooking.datePicker.value;
     thisBooking.hour = utils.hourToNumber(thisBooking.hourPicker.value);
-  
+
+    thisBooking.tableId = null;
+
     let allAvailable = false;
 
     if(
       typeof thisBooking.booked[thisBooking.date] == 'undefined'
-      || 
+      ||
       typeof thisBooking.booked[thisBooking.date][thisBooking.hour] == 'undefined'
     ){
       allAvailable = true;
@@ -164,10 +166,37 @@ export class Booking{
       table.addEventListener('click', function(){
         if(table.classList.contains(classNames.booking.tableBooked)){
           return;
-        } 
+        }
         else {
-          table.classList.toggle(classNames.booking.tableBooked); 
-        }        
+          const hours = thisBooking.hoursAmount.value;
+          const presentHour = utils.hourToNumber(thisBooking.hourPicker.value);
+          const presentDay = thisBooking.datePicker.value;
+          const tableId = parseInt(table.getAttribute('data-table'));
+
+          console.log('Booked', thisBooking.booked);
+          console.log(hours, presentHour, presentDay, tableId);
+
+          let isFreeTable = true;
+
+          for(let hour = presentHour; hour < presentHour + hours; hour = hour += 0.5) {
+            if(thisBooking.booked[presentDay]) {
+              if(thisBooking.booked[presentDay][hour]) {
+                if(thisBooking.booked[presentDay][hour].includes(tableId)) {
+                  isFreeTable = false;
+                  break;
+                }
+              }
+            }
+          }
+
+          if(isFreeTable) {
+            thisBooking.tableId = parseInt(table.getAttribute('data-table'));
+            table.classList.toggle(classNames.booking.tableBooked);
+          } else {
+            alert('Stolik jest zajęty!');
+          }
+
+        }
       });
     }
 
@@ -184,12 +213,13 @@ export class Booking{
     const url = settings.db.url + '/' + settings.db.booking;
 
     const sending = {
-      date: thisBooking.date,
+      date: thisBooking.datePicker.value,
       hour: thisBooking.hourPicker.value,
       duration: thisBooking.dom.hours.value,
       people: thisBooking.dom.people.value,
       address: thisBooking.dom.address.value,
       phone: thisBooking.dom.phone.value,
+      table: thisBooking.tableId,
       starters: [],
     };
     console.log('sending', sending);
@@ -208,7 +238,7 @@ export class Booking{
       },
       body: JSON.stringify(sending),
     };
-    
+
     fetch(url, options)
       .then(function(response){
         return response.json();
@@ -221,14 +251,14 @@ export class Booking{
   render(element){
     const thisBooking = this;
 
-    
-    
+
+
     /* generate HTML code from templates.bookingWigdet without any arguments */
     const generatedHTML = templates.bookingWidget();
     /* create empty object thisBooking.dom */
     thisBooking.dom = {};
     /* save to this object wrapper property equals argument */
-    thisBooking.dom.wrapper = element; 
+    thisBooking.dom.wrapper = element;
     /* change content wrapper to html code from template */
     const generatedDOM = utils.createDOMFromHTML(generatedHTML);
     thisBooking.dom.wrapper.appendChild(generatedDOM);

@@ -35,7 +35,7 @@ export class DatePicker extends BaseWidget {
         firstDayOfWeek: 1 // start week on Monday
       },
       onChange: function(dateStr){
-        thisWidget.value = dateStr;
+        thisWidget.value = dateStr[0];
       },
 
     };
@@ -44,8 +44,8 @@ export class DatePicker extends BaseWidget {
 
   }
 
-  parseValue(){
-    return ;
+  parseValue(val){
+    return utils.dateToStr(utils.addDays(val, 1));
   }
 
   isValid(){
