@@ -109,6 +109,21 @@ const app = {
     });
   },
 
+  initCarousel() {
+    const carousel = document.querySelector('.carousel');
+    const slidesContainer = carousel.querySelector('.carousel .slides');
+
+    function moveRight() {
+      slidesContainer.classList.add('move');
+      setTimeout(function() { slidesContainer.classList.remove('move'); }, 500);
+      slidesContainer.appendChild(carousel.querySelector('.carousel .slides .slide:first-child'));
+    }
+
+    setInterval(moveRight, 3000);
+
+  },
+
+
   init: function(){
     const thisApp = this;
     // console.log('*** App starting ***');
@@ -120,6 +135,8 @@ const app = {
     thisApp.initData();
     thisApp.initCart();
     thisApp.initBooking();
+    thisApp.initCarousel();
+    
   },
 };
 
